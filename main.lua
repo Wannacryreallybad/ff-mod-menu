@@ -268,10 +268,10 @@ local window = library:CreateWindow('FF Mod Menu') do
     local folder = window:AddFolder('Credits') do
         folder:AddLabel({ text = 'Jan - UI library' })
         folder:AddLabel({ text = 'wally - Script' })
-        folder:AddLabel({ text = 'Sezei - Contributor'})
+        folder:AddLabel({ text = 'Sezei - Fork Scripter'})
     end
 
-    window:AddLabel({ text = 'Version 1.4a' })
+    window:AddLabel({ text = 'Version 1.5' })
     window:AddLabel({ text = 'Updated 8/20/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
