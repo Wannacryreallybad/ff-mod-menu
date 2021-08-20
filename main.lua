@@ -75,7 +75,7 @@ end
 
 local runService = game:GetService('RunService')
 local userInputService = game:GetService('UserInputService')
-local client = game:GetService('Players').LocalPlayer;
+local client = game.Players.LocalPlayer;
 local random = Random.new()
 
 botplay_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
