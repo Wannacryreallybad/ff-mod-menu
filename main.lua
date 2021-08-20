@@ -182,7 +182,7 @@ runService:BindToRenderStep(shared._id, 1, function()
                             fastWait(arrow.Data.Length)
                         else
                             -- 0.1 seems to make it miss more, this should be fine enough?
-                            fastWait(0.05) 
+                            fastWait(library.flags.autoDelay) 
                         end
 
                         fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
@@ -195,32 +195,37 @@ runService:BindToRenderStep(shared._id, 1, function()
 end)
 
 local window = library:CreateWindow('Funky Friday') do
-    local folder = window:AddFolder('Main') do
+    local folder = window:AddFolder('Autoplay') do
+        
         folder:AddToggle({ text = 'Autoplayer', flag = 'autoPlayer' })
-        folder:AddList({ text = 'Autoplayer mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
+        folder:AddBind({ text = 'Autoplayer Toggle', key = Enum.KeyCode.Insert, callback = function() library.flags.autoPlayer = not library.flags.autoPlayer end})
+        folder:AddList({ text = 'Autoplayer Mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
         folder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
         folder:AddSlider({ text = 'Good %', flag = 'goodChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
+        folder:AddSlider({ text = 'Release Delay', flag = 'autoDelay', min = 0.05, max = 0.25, value = 0.05})
     end
 
-    local folder = window:AddFolder('Keybinds') do
+    local folder = window:AddFolder('Manual Keybinds') do
         folder:AddBind({ text = 'Sick', flag = 'sickBind', key = Enum.KeyCode.One, hold = true, callback = function(val) library.flags.sickHeld = (not val) end, })
         folder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
         folder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
         folder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
+        folder:AddLabel({ text = 'Non-manual keys will result in anything between OK and Miss if the autoplay is enabled.' })
     end
 
     local folder = window:AddFolder('Credits') do
         folder:AddLabel({ text = 'Credits' })
         folder:AddLabel({ text = 'Jan - UI library' })
         folder:AddLabel({ text = 'wally - Script' })
+        folder:AddLabel({ text = 'Sezei - More scripting lol'})
     end
 
-    window:AddLabel({ text = 'Version 1.3' })
+    window:AddLabel({ text = 'Version 1.3A' })
     window:AddLabel({ text = 'Updated 8/2/21' })
-    window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
+    window:AddBind({ text = 'Menu Toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
 library:Init()
