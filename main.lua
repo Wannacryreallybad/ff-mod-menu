@@ -105,7 +105,7 @@ end
 
 local runService = game:GetService('RunService')
 local userInputService = game:GetService('UserInputService')
-local TimeFunction = RunService:IsRunning() and time or os.clock
+local TimeFunction = runService:IsRunning() and time or os.clock
 local LastIteration, Start
 local FrameUpdateTable = {}
 local client = game:GetService('Players').LocalPlayer;
@@ -118,7 +118,7 @@ fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 local task = task or getrenv().task;
 local fastWait, fastSpawn = task.wait, task.spawn;
 
-local function HeartbeatUpdate()
+local function HeartbeatUpdate() -- literally stole it from devforums because im too lazy to write it myself ok
 	LastIteration = TimeFunction()
 	for Index = #FrameUpdateTable, 1, -1 do
 		FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
@@ -129,7 +129,7 @@ local function HeartbeatUpdate()
 end
 
 Start = TimeFunction()
-RunService.Heartbeat:Connect(HeartbeatUpdate)
+runService.Heartbeat:Connect(HeartbeatUpdate)
 
 local fireSignal, rollChance do
     -- updated for script-ware or whatever
