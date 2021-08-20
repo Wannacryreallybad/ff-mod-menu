@@ -69,7 +69,7 @@ while true do
         break
     end
    
-   botplay_label = framework;
+    botplay_label.Parent = framework;
 
     wait(1)
 end
@@ -271,7 +271,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Fork Scripter'})
     end
 
-    window:AddLabel({ text = 'Version 1.5' })
+    window:AddLabel({ text = 'Ver. 1.5A' })
     window:AddLabel({ text = 'Updated 8/20/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
