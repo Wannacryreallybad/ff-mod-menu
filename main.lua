@@ -238,13 +238,13 @@ local window = library:CreateWindow('FF Mod Menu') do
         end, flag = 'autoPlayer' })
 
         -- Fixed to use toggle:SetState
-        folder:AddBind({ text = 'Autoplayer toggle', flag = 'autoPlayerToggle', key = Enum.KeyCode.End, callback = function() 
+        folder:AddBind({ text = 'Botplay toggle', flag = 'autoPlayerToggle', key = Enum.KeyCode.End, callback = function() 
             toggle:SetState(not toggle.state)
         end })
       
         folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
         
-        folder:AddList({ text = 'Autoplayer mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
+        folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
         
         local innerfolder = folder:AddFolder('Chance Settings') do
             innerfolder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
