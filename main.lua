@@ -45,7 +45,7 @@ local botplay_label = library:Create("TextLabel",{
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextStrokeColor3 = Color3.fromRGB(0,0,0),
     TextStrokeTransparency = 0,
-    Text = "BOTPLAY ACTIVE",
+    Text = "== BOTPLAY INACTIVE ==",
 })
 
 
@@ -227,16 +227,17 @@ end)
 
 local window = library:CreateWindow('FF Mod Menu') do
     local folder = window:AddFolder('Autoplayer') do
-        local toggle = folder:AddToggle({ text = 'Autoplayer', flag = 'autoPlayer' })
+        local toggle = folder:AddToggle({ text = 'Autoplayer', callback = function(val) 
+            if val then
+                botplay_label.Text = "== BOTPLAY ACTIVE =="
+            else
+                botplay_label.Text = "== BOTPLAY INACTIVE =="
+            end    
+        end, flag = 'autoPlayer' })
 
         -- Fixed to use toggle:SetState
         folder:AddBind({ text = 'Autoplayer toggle', flag = 'autoPlayerToggle', key = Enum.KeyCode.End, callback = function() 
             toggle:SetState(not toggle.state)
-            if toggle.state then
-                botplay_label.Text = "BOTPLAY ACTIVE"
-            else
-                botplay_label.Text = "BOTPLAY INACTIVE"
-            end
         end })
       
         folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
