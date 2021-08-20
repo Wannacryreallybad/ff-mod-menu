@@ -1,3 +1,8 @@
+-- 8/20/21
+-- i added shit for wally lol ~sezei
+-- + Added Miss Chance
+-- + Added a button 
+
 -- 8/2/21
 -- KRNL has since been fixed, enjoy!
 
@@ -184,7 +189,8 @@ runService:BindToRenderStep(shared._id, 1, function()
                             fastWait(arrow.Data.Length)
                         else
                             -- 0.1 seems to make it miss more, this should be fine enough?
-                            fastWait(library.flags.autoDelay) 
+                            -- nah forget it. get this; u now have to choose ur own release delay lmao
+                            fastWait((library.flags.autoDelay*1000)) 
                         end
 
                         fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
@@ -197,10 +203,10 @@ runService:BindToRenderStep(shared._id, 1, function()
 end)
 
 local window = library:CreateWindow('Funky Friday') do
-    local folder = window:AddFolder('Autoplay') do
+    local folder = window:AddFolder('Autoplayer') do
         
-        folder:AddToggle({ text = 'Autoplayer', flag = 'autoPlayer' })
-        folder:AddBind({ text = 'Autoplayer Toggle', key = Enum.KeyCode.Insert, callback = function() library.flags.autoPlayer = not library.flags.autoPlayer end})
+        local togg = folder:AddToggle({ text = 'Autoplayer', flag = 'autoPlayer' })
+        folder:AddBind({ text = 'Autoplayer Toggle', key = Enum.KeyCode.Insert, callback = function() togg.state = not togg.state end})
         folder:AddList({ text = 'Autoplayer Mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
         folder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
@@ -208,7 +214,7 @@ local window = library:CreateWindow('Funky Friday') do
         folder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0})
-        folder:AddSlider({ text = 'Release Delay', flag = 'autoDelay', min = 0.05, max = 0.25, value = 0.05})
+        folder:AddSlider({ text = 'Release Delay (ms)', flag = 'autoDelay', min = 50, max = 250, value = 75})
     end
 
     local folder = window:AddFolder('Manual Keybinds') do
