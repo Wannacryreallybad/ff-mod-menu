@@ -318,7 +318,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         end
     end
     
-    local folder = window:AddFolder('Extra Mods') do
+    local folder = window:AddFolder('Display Mods') do
       folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
             botplay_label.Visible = val
       end})
