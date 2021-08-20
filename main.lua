@@ -329,22 +329,18 @@ local window = library:CreateWindow('FF Mod Menu') do
             fps_label.Visible = val
       end})
       local fontslist = Enum.Font:GetEnumItems()
-      local fonts = {}
-      for _,v in pairs(fontslist) do
-          fonts[v.Value] = v
-      end
-      folder:AddList({ text = "In-Game Font A", values = Enum.Font:GetEnumItems(), value = "PermanentMarker", callback = function(val)
-	    client.PlayerGui.GameUI.TopbarLabel.Font = fonts[val]
-	    client.PlayerGui.GameUI.Score.Left.Font = fonts[val]
-	    client.PlayerGui.GameUI.Score.Right.Font = fonts[val]
+      folder:AddList({ text = "In-Game Font A", values = fontslist, value = Enum.Font.PermanentMarker, callback = function(val)
+	    client.PlayerGui.GameUI.TopbarLabel.Font = val
+	    client.PlayerGui.GameUI.Score.Left.Font = val
+	    client.PlayerGui.GameUI.Score.Right.Font = val
       end})
-      folder:AddList({ text = "In-Game Font B", values = fonts , value = "Arcade", callback = function(val)
-	    client.PlayerGui.GameUI.Arrows.InfoBar.Font = fonts[val]
-	    client.PlayerGui.GameUI.Arrows.Left.InfoBar.Font = fonts[val]
-	    client.PlayerGui.GameUI.Arrows.Right.InfoBar.Font = fonts[val]
-	    fps_label.Font = fonts[val]
-	    tps_label.Font = fonts[val]
-	    botplay_label.Font = fonts[val]
+      folder:AddList({ text = "In-Game Font B", values = fontslist , value = Enum.Font.Arcade, callback = function(val)
+	    client.PlayerGui.GameUI.Arrows.InfoBar.Font = val
+	    client.PlayerGui.GameUI.Arrows.Left.InfoBar.Font = val
+	    client.PlayerGui.GameUI.Arrows.Right.InfoBar.Font = val
+	    fps_label.Font = val
+	    tps_label.Font = val
+	    botplay_label.Font = val
       end})
     end
 
