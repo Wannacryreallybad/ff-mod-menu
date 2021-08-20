@@ -94,6 +94,7 @@ local client = game:GetService('Players').LocalPlayer;
 local random = Random.new()
 
 botplay_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
+fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 
 local task = task or getrenv().task;
 local fastWait, fastSpawn = task.wait, task.spawn;
