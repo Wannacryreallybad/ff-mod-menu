@@ -45,8 +45,7 @@ local botplay_label = library:Create("TextLabel",{
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextStrokeColor3 = Color3.fromRGB(0,0,0),
     TextStrokeTransparency = 0,
-    Text = "BOTPLAY INACTIVE",
-    Visible = false,
+    Text = "BOTPLAY ACTIVE",
 })
 
 
@@ -70,31 +69,15 @@ while true do
         break
     end
 
-    wait(0.3)
+    wait(1)
 end
 
 local runService = game:GetService('RunService')
 local userInputService = game:GetService('UserInputService')
-local client = game.Players.LocalPlayer;
+local client = game:GetService('Players').LocalPlayer;
 local random = Random.new()
 
 botplay_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
-
-spawn(function()
-    while wait() do
-         function()
-            if (not library.flags.showBotPlay) then return end
-            
-            if client.PlayerGui.GameUI:FindFirstChild("TopbarLabel") then
-               if client.PlayerGui.GameUI.TopbarLabel.Text ~= "" then
-                  botplay_label.Visible = true;
-               else
-                  botplay_label.Visible = false;
-               end
-            end
-         end)()
-    end
-end)
 
 local task = task or getrenv().task;
 local fastWait, fastSpawn = task.wait, task.spawn;
