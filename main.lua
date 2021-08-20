@@ -68,8 +68,8 @@ while true do
     if (type(framework) == 'table') and (typeof(scrollHandler) == 'Instance') then
         break
     end
-   
-    botplay_label.Parent = framework;
+   -- frick lol
+    botplay_label.Parent = scrollHandler;
 
     wait(1)
 end
