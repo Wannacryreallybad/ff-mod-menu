@@ -3,6 +3,8 @@ Change logs:
 
 8/20/21 (2nd)
    + Added a new folder for extra modifications.
+   + Added toggleable 'BOTPLAY' label.
+   * Renamed Autoplayer to Botplay.
    * Compacted the Autoplay section.
 
 8/20/21 (1st)
@@ -45,7 +47,7 @@ local botplay_label = library:Create("TextLabel",{
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextStrokeColor3 = Color3.fromRGB(0,0,0),
     TextStrokeTransparency = 0,
-    Text = "== BOTPLAY INACTIVE ==",
+    Text = "== BOTPLAY ==",
 })
 
 
@@ -110,7 +112,7 @@ local fireSignal, rollChance do
             if (library.flags.okayHeld) then return 'Ok' end
             if (library.flags.missHeld) then return 'Bad' end
 
-            return 'Bad' -- incase if it cant find one
+            return library.flags.manualAutoKey -- incase if it cant find one
         end
 
         local chances = {
@@ -226,12 +228,12 @@ runService:BindToRenderStep(shared._id, 1, function()
 end)
 
 local window = library:CreateWindow('FF Mod Menu') do
-    local folder = window:AddFolder('Autoplayer') do
-        local toggle = folder:AddToggle({ text = 'Autoplayer', callback = function(val) 
+    local folder = window:AddFolder('Botplay') do
+        local toggle = folder:AddToggle({ text = 'Botplay Enabled', callback = function(val) 
             if val then
-                botplay_label.Text = "== BOTPLAY ACTIVE =="
+                botplay_label.Text = "== BOTPLAY =="
             else
-                botplay_label.Text = "== BOTPLAY INACTIVE =="
+                botplay_label.Text = ""
             end    
         end, flag = 'autoPlayer' })
 
@@ -257,6 +259,7 @@ local window = library:CreateWindow('FF Mod Menu') do
             innerfolder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
             innerfolder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
             innerfolder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
+            innerfolder:AddList({ text = 'Automatic key', flag = 'manualAutoKey', values = {'Bad', 'Ok', 'Good', 'Sick'}})
         end
     end
     
@@ -272,7 +275,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Fork Scripter'})
     end
 
-    window:AddLabel({ text = 'Ver. 1.5A' })
+    window:AddLabel({ text = 'Ver. 1.5B' })
     window:AddLabel({ text = 'Updated 8/20/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
