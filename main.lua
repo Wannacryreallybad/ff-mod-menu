@@ -47,7 +47,21 @@ local botplay_label = library:Create("TextLabel",{
     TextColor3 = Color3.fromRGB(255, 255, 255),
     TextStrokeColor3 = Color3.fromRGB(0,0,0),
     TextStrokeTransparency = 0,
-    Text = "== BOTPLAY ==",
+    Text = "",
+})
+local fps_label = library:Create("TextLabel",{
+    AnchorPoint = Vector2.new(0, 1),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 10, 1, -10),
+    Size = UDim2.new(0, 1, 0, 1),
+    Font = Enum.Font.Arcade,
+    FontSize = Enum.FontSize.Size14,
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    TextStrokeColor3 = Color3.fromRGB(0,0,0),
+    TextStrokeTransparency = 0,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextYAlignment = Enum.TextYAlignment.Bottom,
+    Text = "TPS: --",
 })
 
 
@@ -112,7 +126,7 @@ local fireSignal, rollChance do
             if (library.flags.okayHeld) then return 'Ok' end
             if (library.flags.missHeld) then return 'Bad' end
 
-            return library.flags.manualAutoKey -- incase if it cant find one
+            return library.flags.manualAutoKey or 'Bad' -- incase if it cant find one
         end
 
         local chances = {
@@ -168,6 +182,14 @@ local chanceValues = {
 }
 
 local hitChances = {}
+
+spawn(function()
+    while true do
+      local tps = wait()
+      fps_label.Text = string.format("%.2f", (1/tps))
+      wait(0.5)
+    end
+end)
 
 if shared._id then
     pcall(runService.UnbindFromRenderStep, runService, shared._id)
@@ -264,9 +286,12 @@ local window = library:CreateWindow('FF Mod Menu') do
     end
     
     local folder = window:AddFolder('Extra Mods') do
-        folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
+      folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
             botplay_label.Visible = val
-        end, flag = 'showBotPlay' })
+      end, flag = "showBotPlay" })
+      folder:AddToggle({ text = "Show TPS", state = true, callback = function(val)
+            fps_label.Visible = val
+      end, flag = 'showTPS' })
     end
 
     local folder = window:AddFolder('Credits') do
