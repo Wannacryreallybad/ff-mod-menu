@@ -219,7 +219,7 @@ local hitChances = {}
 spawn(function()
     while true do
       local tps = wait()
-      fps_label.Text = string.format("TPS: %.2f", (1/tps))
+      tps_label.Text = string.format("TPS: %.2f", (1/tps))
       wait(0.5)
     end
 end)
