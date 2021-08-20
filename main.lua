@@ -4,6 +4,7 @@ Change logs:
 8/20/21 (2nd)
    + Added a new folder for extra modifications.
    + Added toggleable 'BOTPLAY' label.
+   + Added TPS counter.
    * Renamed Autoplayer to Botplay.
    * Compacted the Autoplay section.
 
@@ -301,7 +302,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Fork Scripter'})
     end
 
-    window:AddLabel({ text = 'Ver. 1.5B' })
+    window:AddLabel({ text = 'Ver. 1.4C' }) -- how tf did i get to 1.5
     window:AddLabel({ text = 'Updated 8/20/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
