@@ -209,7 +209,7 @@ local window = library:CreateWindow('Funky Friday') do
     local folder = window:AddFolder('Autoplayer') do
         
         local togg = folder:AddToggle({ text = 'Autoplayer', flag = 'autoPlayer' })
-        folder:AddBind({ text = 'Autoplayer Toggle', key = Enum.KeyCode.Insert, callback = function() togg.state = not togg.state end})
+        folder:AddBind({ text = 'Autoplayer Toggle', key = Enum.KeyCode.Insert, callback = function() togg.state = not togg.state; library.flags.autoPlayer = not library.flags.autoPlayer end})
         folder:AddList({ text = 'Autoplayer Mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
         folder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
