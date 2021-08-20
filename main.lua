@@ -68,6 +68,8 @@ while true do
     if (type(framework) == 'table') and (typeof(scrollHandler) == 'Instance') then
         break
     end
+   
+   botplay_label = framework;
 
     wait(1)
 end
@@ -236,16 +238,11 @@ local window = library:CreateWindow('FF Mod Menu') do
                 botplay_label.Text = "BOTPLAY INACTIVE"
             end
         end })
+      
+        folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
         
         folder:AddList({ text = 'Autoplayer mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
         
-        local innerfolder = folder:AddFolder('Manual Keybinds') do
-            innerfolder:AddBind({ text = 'Sick', flag = 'sickBind', key = Enum.KeyCode.One, hold = true, callback = function(val) library.flags.sickHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
-        end
-
         local innerfolder = folder:AddFolder('Chance Settings') do
             innerfolder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
             innerfolder:AddSlider({ text = 'Good %', flag = 'goodChance', min = 0, max = 100, value = 0 })
@@ -253,8 +250,13 @@ local window = library:CreateWindow('FF Mod Menu') do
             innerfolder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
             innerfolder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0 })
         end
-        
-        folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
+      
+        local innerfolder = folder:AddFolder('Manual Keybinds') do
+            innerfolder:AddBind({ text = 'Sick', flag = 'sickBind', key = Enum.KeyCode.One, hold = true, callback = function(val) library.flags.sickHeld = (not val) end, })
+            innerfolder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
+            innerfolder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
+            innerfolder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
+        end
     end
     
     local folder = window:AddFolder('Extra Mods') do
