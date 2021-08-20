@@ -1,7 +1,10 @@
 -- 8/20/21
--- i added shit for wally lol ~sezei
--- + Added Miss Chance
--- + Added a button 
+-- i added shit for wally lol
+-- + Added Miss Chance.
+-- + Added a bind to toggle the Autplayer. // VISUALLY IT IS NOT AFFECTED, BUT IT WORKS.
+-- + Added 'Release Delay' to make button presses look more realistic. (Note; Higher value = Higher chance to miss)
+-- + Added myself to credits because why the hell not.
+-- * Clarified each list.
 
 -- 8/2/21
 -- KRNL has since been fixed, enjoy!
@@ -186,11 +189,11 @@ runService:BindToRenderStep(shared._id, 1, function()
 
                         if arrow.Data.Length > 0 then
                             -- wait depending on the arrows length so the animation can play
-                            fastWait(arrow.Data.Length)
+                            fastWait(arrow.Data.Length + (math.random(0, library.flags.autoDelay)/1000))
                         else
                             -- 0.1 seems to make it miss more, this should be fine enough?
                             -- nah forget it. get this; u now have to choose ur own release delay lmao
-                            fastWait((library.flags.autoDelay*1000)) 
+                            fastWait((library.flags.autoDelay/1000)) 
                         end
 
                         fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
@@ -214,7 +217,7 @@ local window = library:CreateWindow('Funky Friday') do
         folder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0})
-        folder:AddSlider({ text = 'Release Delay (ms)', flag = 'autoDelay', min = 50, max = 250, value = 75})
+        folder:AddSlider({ text = 'Release Delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50})
     end
 
     local folder = window:AddFolder('Manual Keybinds') do
@@ -222,7 +225,7 @@ local window = library:CreateWindow('Funky Friday') do
         folder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
         folder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
         folder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
-        folder:AddLabel({ text = 'Non-manual keys will result in anything between OK and Miss if the autoplay is enabled.' })
+        -- Not Pressed = Automatic Bad or OK.
     end
 
     local folder = window:AddFolder('Credits') do
