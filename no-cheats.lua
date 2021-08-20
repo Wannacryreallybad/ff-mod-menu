@@ -94,6 +94,18 @@ local window = library:CreateWindow('FF Mod Menu') do
       folder:AddToggle({ text = "Show FPS", state = true, callback = function(val)
             fps_label.Visible = val
       end})
+      folder:AddList({ text = "In-Game Font A", values = Enum.Font:GetEnumItems(), value = "PermanentMarker", callback = function(val)
+	    client.PlayerGui.GameUI.TopbarLabel.Font = Enum.Font[val]
+	    client.PlayerGui.GameUI.Score.Left.Font = Enum.Font[val]
+	    client.PlayerGui.GameUI.Score.Right.Font = Enum.Font[val]
+      end})
+      folder:AddList({ text = "In-Game Font B", values = Enum.Font:GetEnumItems(), value = "Arcade", callback = function(val)
+	    client.PlayerGui.GameUI.Arrows.InfoBar.Font = Enum.Font[val]
+	    client.PlayerGui.GameUI.Arrows.Left.InfoBar.Font = Enum.Font[val]
+	    client.PlayerGui.GameUI.Arrows.Right.InfoBar.Font = Enum.Font[val]
+	    fps_label.Font = Enum.Font[val]
+	    tps_label.Font = Enum.Font[val]
+      end})
     end
 
     local folder = window:AddFolder('Credits') do
