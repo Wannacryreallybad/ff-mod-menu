@@ -91,6 +91,7 @@ local fireSignal, rollChance do
             { type = 'Good', value = library.flags.goodChance },
             { type = 'Ok', value = library.flags.okChance },
             { type = 'Bad', value = library.flags.badChance },
+            { type = 'Miss' , value = library.flags.missChance },
         }
         
         table.sort(chances, function(a, b) 
@@ -105,7 +106,7 @@ local fireSignal, rollChance do
         if sum == 0 then
             -- forgot to change this before?
             -- fixed 6/5/21
-            return chances[random:NextInteger(1, 4)].type 
+            return chances[random:NextInteger(1, 5)].type 
         end
 
         local initialWeight = random:NextInteger(0, sum)
@@ -132,7 +133,8 @@ local chanceValues = {
     Sick = 96,
     Good = 92,
     Ok = 87,
-    Bad = 75
+    Bad = 75,
+    Miss = 0
 }
 
 local hitChances = {}
@@ -205,6 +207,7 @@ local window = library:CreateWindow('Funky Friday') do
         folder:AddSlider({ text = 'Good %', flag = 'goodChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
         folder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
+        folder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0})
         folder:AddSlider({ text = 'Release Delay', flag = 'autoDelay', min = 0.05, max = 0.25, value = 0.05})
     end
 
