@@ -50,7 +50,7 @@ local botplay_label = library:Create("TextLabel",{
     TextStrokeTransparency = 0,
     Text = "",
 })
-local fps_label = library:Create("TextLabel",{
+local tps_label = library:Create("TextLabel",{
     AnchorPoint = Vector2.new(0, 1),
     BackgroundTransparency = 1,
     Position = UDim2.new(0, 10, 1, -10),
@@ -63,6 +63,20 @@ local fps_label = library:Create("TextLabel",{
     TextXAlignment = Enum.TextXAlignment.Left,
     TextYAlignment = Enum.TextYAlignment.Bottom,
     Text = "TPS: --",
+})
+local fps_label = library:Create("TextLabel",{
+    AnchorPoint = Vector2.new(0, 1),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 10, 1, -20),
+    Size = UDim2.new(0, 1, 0, 1),
+    Font = Enum.Font.Arcade,
+    FontSize = Enum.FontSize.Size14,
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    TextStrokeColor3 = Color3.fromRGB(0,0,0),
+    TextStrokeTransparency = 0,
+    TextXAlignment = Enum.TextXAlignment.Left,
+    TextYAlignment = Enum.TextYAlignment.Bottom,
+    Text = "FPS: --",
 })
 
 
@@ -91,14 +105,31 @@ end
 
 local runService = game:GetService('RunService')
 local userInputService = game:GetService('UserInputService')
+local TimeFunction = RunService:IsRunning() and time or os.clock
+local LastIteration, Start
+local FrameUpdateTable = {}
 local client = game:GetService('Players').LocalPlayer;
 local random = Random.new()
 
 botplay_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
+tps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 
 local task = task or getrenv().task;
 local fastWait, fastSpawn = task.wait, task.spawn;
+
+local function HeartbeatUpdate()
+	LastIteration = TimeFunction()
+	for Index = #FrameUpdateTable, 1, -1 do
+		FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
+	end
+
+	FrameUpdateTable[1] = LastIteration
+	fps_label.Text = "FPS: "..tostring(math.floor(TimeFunction() - Start >= 1 and #FrameUpdateTable or #FrameUpdateTable / (TimeFunction() - Start)))
+end
+
+Start = TimeFunction()
+RunService.Heartbeat:Connect(HeartbeatUpdate)
 
 local fireSignal, rollChance do
     -- updated for script-ware or whatever
@@ -188,7 +219,7 @@ local hitChances = {}
 spawn(function()
     while true do
       local tps = wait()
-      fps_label.Text = string.format("%.2f", (1/tps))
+      fps_label.Text = string.format("TPS: %.2f", (1/tps))
       wait(0.5)
     end
 end)
@@ -290,10 +321,13 @@ local window = library:CreateWindow('FF Mod Menu') do
     local folder = window:AddFolder('Extra Mods') do
       folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
             botplay_label.Visible = val
-      end, flag = "showBotPlay" })
+      end})
       folder:AddToggle({ text = "Show TPS", state = true, callback = function(val)
+            tps_label.Visible = val
+      end})
+      folder:AddToggle({ text = "Show FPS", state = true, callback = function(val)
             fps_label.Visible = val
-      end, flag = 'showTPS' })
+      end})
     end
 
     local folder = window:AddFolder('Credits') do
@@ -302,7 +336,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Fork Scripter'})
     end
 
-    window:AddLabel({ text = 'Ver. 1.4C' }) -- how tf did i get to 1.5
+    window:AddLabel({ text = 'Ver. 1.4D' }) -- how tf did i get to 1.5
     window:AddLabel({ text = 'Updated 8/20/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
