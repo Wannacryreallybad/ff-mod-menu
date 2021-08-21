@@ -115,6 +115,13 @@ local window = library:CreateWindow('FF Mod Menu') do
 	    tps_label.Font = Enum.Font[val]
 	end); if not s then print(f) end; -- debug
       end})
+      folder:AddBox({ text = "Fake Announce", callback = function(tx)
+	    client.PlayerGui.GameUI.TopbarLabel.Visible = true;
+	    client.PlayerGui.GameUI.TopbarLabel.Text = tx;
+	    wait(7.5);
+	    client.PlayerGui.GameUI.TopbarLabel.Text = "";
+	    client.PlayerGui.GameUI.TopbarLabel.Visible = false;
+      end})
     end
 
     local folder = window:AddFolder('Credits') do
@@ -123,7 +130,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Mod Menu Fork'})
     end
 
-    window:AddLabel({ text = 'Ver. 1.4D (ChL 3)' }) -- how tf did i get to 1.5
+    window:AddLabel({ text = 'Ver. 1.4E (ChL)' })
     window:AddLabel({ text = 'Updated 8/21/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
