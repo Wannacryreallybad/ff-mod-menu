@@ -39,68 +39,68 @@ Information:
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
 local botplay_label = library:Create("TextLabel",{
-    AnchorPoint = Vector2.new(0.5, 1),
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0.5, 0, 1, -45),
-    Size = UDim2.new(0, 200, 0, 20),
-    Font = Enum.Font.Arcade,
-    FontSize = Enum.FontSize.Size24,
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextStrokeColor3 = Color3.fromRGB(0,0,0),
-    TextStrokeTransparency = 0,
-    Text = "",
+	AnchorPoint = Vector2.new(0.5, 1),
+	BackgroundTransparency = 1,
+	Position = UDim2.new(0.5, 0, 1, -45),
+	Size = UDim2.new(0, 200, 0, 20),
+	Font = Enum.Font.Arcade,
+	FontSize = Enum.FontSize.Size24,
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	TextStrokeColor3 = Color3.fromRGB(0,0,0),
+	TextStrokeTransparency = 0,
+	Text = "",
 })
 local tps_label = library:Create("TextLabel",{
-    AnchorPoint = Vector2.new(0, 1),
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 10, 1, -10),
-    Size = UDim2.new(0, 1, 0, 1),
-    Font = Enum.Font.Arcade,
-    FontSize = Enum.FontSize.Size14,
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextStrokeColor3 = Color3.fromRGB(0,0,0),
-    TextStrokeTransparency = 0,
-    TextXAlignment = Enum.TextXAlignment.Left,
-    TextYAlignment = Enum.TextYAlignment.Bottom,
-    Text = "TPS: --",
+	AnchorPoint = Vector2.new(0, 1),
+	BackgroundTransparency = 1,
+	Position = UDim2.new(0, 10, 1, -10),
+	Size = UDim2.new(0, 1, 0, 1),
+	Font = Enum.Font.Arcade,
+	FontSize = Enum.FontSize.Size14,
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	TextStrokeColor3 = Color3.fromRGB(0,0,0),
+	TextStrokeTransparency = 0,
+	TextXAlignment = Enum.TextXAlignment.Left,
+	TextYAlignment = Enum.TextYAlignment.Bottom,
+	Text = "TPS: --",
 })
 local fps_label = library:Create("TextLabel",{
-    AnchorPoint = Vector2.new(0, 1),
-    BackgroundTransparency = 1,
-    Position = UDim2.new(0, 10, 1, -20),
-    Size = UDim2.new(0, 1, 0, 1),
-    Font = Enum.Font.Arcade,
-    FontSize = Enum.FontSize.Size14,
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    TextStrokeColor3 = Color3.fromRGB(0,0,0),
-    TextStrokeTransparency = 0,
-    TextXAlignment = Enum.TextXAlignment.Left,
-    TextYAlignment = Enum.TextYAlignment.Bottom,
-    Text = "FPS: --",
+	AnchorPoint = Vector2.new(0, 1),
+	BackgroundTransparency = 1,
+	Position = UDim2.new(0, 10, 1, -20),
+	Size = UDim2.new(0, 1, 0, 1),
+	Font = Enum.Font.Arcade,
+	FontSize = Enum.FontSize.Size14,
+	TextColor3 = Color3.fromRGB(255, 255, 255),
+	TextStrokeColor3 = Color3.fromRGB(0,0,0),
+	TextStrokeTransparency = 0,
+	TextXAlignment = Enum.TextXAlignment.Left,
+	TextYAlignment = Enum.TextYAlignment.Bottom,
+	Text = "FPS: --",
 })
 
 
 local framework, scrollHandler
 while true do
-    for _, obj in next, getgc(true) do
-        if type(obj) == 'table' and rawget(obj, 'GameUI') then
-            framework = obj;
-            break
-        end 
-    end
+	for _, obj in next, getgc(true) do
+		if type(obj) == 'table' and rawget(obj, 'GameUI') then
+			framework = obj;
+			break
+		end 
+	end
 
-    for _, module in next, getloadedmodules() do
-        if module.Name == 'ScrollHandler' then
-            scrollHandler = module;
-            break;
-        end
-    end
+	for _, module in next, getloadedmodules() do
+		if module.Name == 'ScrollHandler' then
+			scrollHandler = module;
+			break;
+		end
+	end
 
-    if (type(framework) == 'table') and (typeof(scrollHandler) == 'Instance') then
-        break
-    end
+	if (type(framework) == 'table') and (typeof(scrollHandler) == 'Instance') then
+		break
+	end
 
-    wait(1)
+	wait(1)
 end
 
 local runService = game:GetService('RunService')
@@ -132,73 +132,73 @@ Start = TimeFunction()
 runService.Heartbeat:Connect(HeartbeatUpdate)
 
 local fireSignal, rollChance do
-    -- updated for script-ware or whatever
-    -- attempted to update for krnl 
-    local set_identity = (type(syn) == 'table' and syn.set_thread_identity) or setidentity or setthreadcontext
-    function fireSignal(target, signal, ...)    
-        -- getconnections with InputBegan / InputEnded does not work without setting Synapse to the game's context level
-        set_identity(2) 
-        for _, signal in next, getconnections(signal) do
-            if type(signal.Function) == 'function' and islclosure(signal.Function) then
-                local scr = rawget(getfenv(signal.Function), 'script')
-                if scr == target then
-                    pcall(signal.Function, ...)
-                end
-            end
-        end
-        set_identity(7)
-    end
+	-- updated for script-ware or whatever
+	-- attempted to update for krnl 
+	local set_identity = (type(syn) == 'table' and syn.set_thread_identity) or setidentity or setthreadcontext
+	function fireSignal(target, signal, ...)    
+		-- getconnections with InputBegan / InputEnded does not work without setting Synapse to the game's context level
+		set_identity(2) 
+		for _, signal in next, getconnections(signal) do
+			if type(signal.Function) == 'function' and islclosure(signal.Function) then
+				local scr = rawget(getfenv(signal.Function), 'script')
+				if scr == target then
+					pcall(signal.Function, ...)
+				end
+			end
+		end
+		set_identity(7)
+	end
 
-    -- uses a weighted random system
-    -- its a bit scuffed rn but it works good enough
+	-- uses a weighted random system
+	-- its a bit scuffed rn but it works good enough
 
-    function rollChance()
-        if (library.flags.autoPlayerMode == 'Manual') then
-            if (library.flags.sickHeld) then return 'Sick' end
-            if (library.flags.goodHeld) then return 'Good' end
-            if (library.flags.okayHeld) then return 'Ok' end
-            if (library.flags.missHeld) then return 'Bad' end
+	function rollChance()
+		if (library.flags.autoPlayerMode == 'Manual') then
+			if (library.flags.sickHeld) then return 'Sick' end
+			if (library.flags.goodHeld) then return 'Good' end
+			if (library.flags.okayHeld) then return 'Ok' end
+			if (library.flags.missHeld) then return 'Bad' end
 
-            return library.flags.manualAutoKey or 'Bad' -- incase if it cant find one
-        end
+			return library.flags.manualAutoKey or 'Bad' -- incase if it cant find one
+		end
 
-        local chances = {
-            { type = 'Sick', value = library.flags.sickChance },
-            { type = 'Good', value = library.flags.goodChance },
-            { type = 'Ok', value = library.flags.okChance },
-            { type = 'Bad', value = library.flags.badChance },
-            { type = 'Miss' , value = library.flags.missChance },
-        }
-        
-        table.sort(chances, function(a, b) 
-            return a.value > b.value 
-        end)
+		local chances = {
+			{ type = 'Sick', value = library.flags.sickChance },
+			{ type = 'Good', value = library.flags.goodChance },
+			{ type = 'Ok', value = library.flags.okChance },
+			{ type = 'Bad', value = library.flags.badChance },
+			{ type = 'Miss' , value = library.flags.missChance },
+		}
 
-        local sum = 0;
-        for i = 1, #chances do
-            sum += chances[i].value
-        end
+		table.sort(chances, function(a, b) 
+			return a.value > b.value 
+		end)
 
-        if sum == 0 then
-            -- forgot to change this before?
-            -- fixed 6/5/21
+		local sum = 0;
+		for i = 1, #chances do
+			sum += chances[i].value
+		end
 
-            return chances[random:NextInteger(1, #chances)].type 
-        end
+		if sum == 0 then
+			-- forgot to change this before?
+			-- fixed 6/5/21
 
-        local initialWeight = random:NextInteger(0, sum)
-        local weight = 0;
+			return chances[random:NextInteger(1, #chances)].type 
+		end
 
-        for i = 1, #chances do
-            weight = weight + chances[i].value
+		local initialWeight = random:NextInteger(0, sum)
+		local weight = 0;
 
-            if weight > initialWeight then
-                return chances[i].type
-            end
-        end
+		for i = 1, #chances do
+			weight = weight + chances[i].value
 
-        return 'Sick' -- just incase it fails?
-    end
+			if weight > initialWeight then
+				return chances[i].type
+			end
+		end
+
+		return 'Sick' -- just incase it fails?
+	end
 end
 
 local map = { [0] = 'Left', [1] = 'Down', [2] = 'Up', [3] = 'Right', }
@@ -207,161 +207,156 @@ local keys = { Up = Enum.KeyCode.Up; Down = Enum.KeyCode.Down; Left = Enum.KeyCo
 -- they are "weird" because they are in the middle of their Upper & Lower ranges 
 -- should hopefully make them more precise!
 local chanceValues = {
-    Sick = 96,
-    Good = 92,
-    Ok = 87,
-    Bad = 75,
-    Miss = 0
+	Sick = 96,
+	Good = 92,
+	Ok = 87,
+	Bad = 75,
+	Miss = 0
 }
 
 local hitChances = {}
 
 spawn(function()
-    while true do
-      local tps = wait()
-      tps_label.Text = string.format("TPS: %.2f", (1/tps))
-      wait(0.5)
-    end
+	while true do
+		local tps = wait()
+		tps_label.Text = string.format("TPS: %.2f", (1/tps))
+		wait(0.5)
+	end
 end)
 
 if shared._id then
-    pcall(runService.UnbindFromRenderStep, runService, shared._id)
+	pcall(runService.UnbindFromRenderStep, runService, shared._id)
 end
 
 shared._id = game:GetService('HttpService'):GenerateGUID(false)
 runService:BindToRenderStep(shared._id, 1, function()
-    if (not library.flags.autoPlayer) then return end
+	if (not library.flags.autoPlayer) then return end
 
-    local arrows = {}
-    for _, obj in next, framework.UI.ActiveSections do
-        arrows[#arrows + 1] = obj;
-    end
+	local arrows = {}
+	for _, obj in next, framework.UI.ActiveSections do
+		arrows[#arrows + 1] = obj;
+	end
 
-    for idx = 1, #arrows do
-        local arrow = arrows[idx]
-        if type(arrow) ~= 'table' then 
-            continue
-        end
+	for idx = 1, #arrows do
+		local arrow = arrows[idx]
+		if type(arrow) ~= 'table' then 
+			continue
+		end
 
-        if (arrow.Side == framework.UI.CurrentSide) and (not arrow.Marked) then
-            local indice = (arrow.Data.Position % 4)
-            local position = map[indice]
-            
-            if (position) then
-                local currentTime = framework.SongPlayer.CurrentlyPlaying.TimePosition
-                local distance = (1 - math.abs(arrow.Data.Time - currentTime)) * 100
+		if (arrow.Side == framework.UI.CurrentSide) and (not arrow.Marked) then
+			local indice = (arrow.Data.Position % 4)
+			local position = map[indice]
 
-                if (arrow.Data.Time == 0) then
-                    continue
-                end
+			if (position) then
+				local currentTime = framework.SongPlayer.CurrentlyPlaying.TimePosition
+				local distance = (1 - math.abs(arrow.Data.Time - currentTime)) * 100
 
-                local result = rollChance()
-                arrow._hitChance = arrow._hitChance or result;
+				if (arrow.Data.Time == 0) then
+					continue
+				end
 
-                local hitChance = (library.flags.autoPlayerMode == 'Manual' and result or arrow._hitChance)
-                if distance >= chanceValues[hitChance] then
-                    fastSpawn(function()
-                        arrow.Marked = true;
-                        fireSignal(scrollHandler, userInputService.InputBegan, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
+				local result = rollChance()
+				arrow._hitChance = arrow._hitChance or result;
 
-                        if arrow.Data.Length > 0 then
-                            -- wait depending on the arrows length so the animation can play
-                            fastWait(arrow.Data.Length + (random:NextInteger(0, library.flags.autoDelay) / 1000))
-                        else
-                            -- 0.1 seems to make it miss more, this should be fine enough?
-                            -- nah forget it. get this; u now have to choose ur own release delay lmao
-                            fastWait(library.flags.autoDelay / 1000) 
-                        end
+				local hitChance = (library.flags.autoPlayerMode == 'Manual' and result or arrow._hitChance)
+				if distance >= chanceValues[hitChance] then
+					fastSpawn(function()
+						arrow.Marked = true;
+						fireSignal(scrollHandler, userInputService.InputBegan, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
 
-                        fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
-                        arrow.Marked = nil;
-                    end)
-                end
-            end
-        end
-    end
+						if arrow.Data.Length > 0 then
+							-- wait depending on the arrows length so the animation can play
+							fastWait(arrow.Data.Length + (random:NextInteger(0, library.flags.autoDelay) / 1000))
+						else
+							-- 0.1 seems to make it miss more, this should be fine enough?
+							-- nah forget it. get this; u now have to choose ur own release delay lmao
+							fastWait(library.flags.autoDelay / 1000) 
+						end
+
+						fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
+						arrow.Marked = nil;
+					end)
+				end
+			end
+		end
+	end
 end)
 
 local window = library:CreateWindow('FF Mod Menu') do
-    local folder = window:AddFolder('Botplay') do
-        local toggle = folder:AddToggle({ text = 'Botplay Enabled', callback = function(val) 
-            if val then
-                botplay_label.Text = "== BOTPLAY =="
-            else
-                botplay_label.Text = ""
-            end    
-        end, flag = 'autoPlayer' })
+	local folder = window:AddFolder('Botplay') do
+		local toggle = folder:AddToggle({ text = 'Botplay Enabled', callback = function(val) 
+			if val then
+				botplay_label.Text = "== BOTPLAY =="
+			else
+				botplay_label.Text = ""
+			end    
+		end, flag = 'autoPlayer' })
 
-        -- Fixed to use toggle:SetState
-        folder:AddBind({ text = 'Botplay toggle', flag = 'autoPlayerToggle', key = Enum.KeyCode.End, callback = function() 
-            toggle:SetState(not toggle.state)
-        end })
-      
-        folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
-        
-        folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
-        
-        local innerfolder = folder:AddFolder('Chance Settings') do
-            innerfolder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
-            innerfolder:AddSlider({ text = 'Good %', flag = 'goodChance', min = 0, max = 100, value = 0 })
-            innerfolder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
-            innerfolder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
-            innerfolder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0 })
-        end
-      
-        local innerfolder = folder:AddFolder('Manual Keybinds') do
-            innerfolder:AddBind({ text = 'Sick', flag = 'sickBind', key = Enum.KeyCode.One, hold = true, callback = function(val) library.flags.sickHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
-            innerfolder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
-            innerfolder:AddList({ text = 'Automatic key', flag = 'manualAutoKey', values = {'Bad', 'Ok', 'Good', 'Sick'}})
-        end
-    end
-    
-    local folder = window:AddFolder('Display Mods') do
-      folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
-            botplay_label.Visible = val
-      end})
-      folder:AddToggle({ text = "Show TPS", state = true, callback = function(val)
-            tps_label.Visible = val
-      end})
-      folder:AddToggle({ text = "Show FPS", state = true, callback = function(val)
-            fps_label.Visible = val
-      end})
-      local fontslist = Enum.Font:GetEnumItems()
-      local fonts = {}
-      for _,v in pairs(fontslist) do
-          fonts[v.Name] = v.Name
-      end
-      folder:AddList({ text = "In-Game Font A", values = fonts, value = "PermanentMarker", callback = function(val)
-	local s,f = pcall(function()
-	    client.PlayerGui.GameUI.TopbarLabel.Font = Enum.Font[val]
-	    client.PlayerGui.GameUI.Score.Left.Font = Enum.Font[val]
-	    client.PlayerGui.GameUI.Score.Right.Font = Enum.Font[val]
-	end); if not s then print(f) end; -- debug
-      end})
-      folder:AddList({ text = "In-Game Font B", values = fonts , value = "Arcade", callback = function(val)
-	local s,f = pcall(function()
-	    client.PlayerGui.GameUI.Arrows.InfoBar.Font = Enum.Font[val]
-	    client.PlayerGui.GameUI.Arrows.Left.InfoBar.Font = Enum.Font[val]
-	    client.PlayerGui.GameUI.Arrows.Right.InfoBar.Font = Enum.Font[val]
-	    fps_label.Font = Enum.Font[val]
-	    tps_label.Font = Enum.Font[val]
-	    botplay_label.Font = Enum.Font[val]
-	end); if not s then print(f) end; -- debug
-      end})
-    end
-    end
+		-- Fixed to use toggle:SetState
+		folder:AddBind({ text = 'Botplay toggle', flag = 'autoPlayerToggle', key = Enum.KeyCode.End, callback = function() 
+			toggle:SetState(not toggle.state)
+		end })
 
-    local folder = window:AddFolder('Credits') do
-        folder:AddLabel({ text = 'Jan - UI library' })
-        folder:AddLabel({ text = 'wally - Script' })
-        folder:AddLabel({ text = 'Sezei - Fork Scripter'})
-    end
+		folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
 
-    window:AddLabel({ text = 'Ver. 1.4D' }) -- how tf did i get to 1.5
-    window:AddLabel({ text = 'Updated 8/20/21' })
-    window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
+		folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
+
+		local innerfolder = folder:AddFolder('Chance Settings') do
+			innerfolder:AddSlider({ text = 'Sick %', flag = 'sickChance', min = 0, max = 100, value = 100 })
+			innerfolder:AddSlider({ text = 'Good %', flag = 'goodChance', min = 0, max = 100, value = 0 })
+			innerfolder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
+			innerfolder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
+			innerfolder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0 })
+		end
+
+		local innerfolder = folder:AddFolder('Manual Keybinds') do
+			innerfolder:AddBind({ text = 'Sick', flag = 'sickBind', key = Enum.KeyCode.One, hold = true, callback = function(val) library.flags.sickHeld = (not val) end, })
+			innerfolder:AddBind({ text = 'Good', flag = 'goodBind', key = Enum.KeyCode.Two, hold = true, callback = function(val) library.flags.goodHeld = (not val) end, })
+			innerfolder:AddBind({ text = 'Ok', flag = 'okBind', key = Enum.KeyCode.Three, hold = true, callback = function(val) library.flags.okayHeld = (not val) end, })
+			innerfolder:AddBind({ text = 'Bad', flag = 'badBind', key = Enum.KeyCode.Four, hold = true, callback = function(val) library.flags.missHeld = (not val) end, })
+			innerfolder:AddList({ text = 'Automatic key', flag = 'manualAutoKey', values = {'Bad', 'Ok', 'Good', 'Sick'}})
+		end
+	end
+
+	local folder = window:AddFolder('Display Mods') do
+		folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
+			botplay_label.Visible = val
+		end})
+		folder:AddToggle({ text = "Show TPS", state = true, callback = function(val)
+			tps_label.Visible = val
+		end})
+		folder:AddToggle({ text = "Show FPS", state = true, callback = function(val)
+			fps_label.Visible = val
+		end})
+		local fontslist = Enum.Font:GetEnumItems()
+		local fonts = {}
+		for _,v in pairs(fontslist) do
+			fonts[v.Name] = v.Name
+		end
+		folder:AddList({ text = "In-Game Font A", values = fonts, value = "PermanentMarker", callback = function(val)
+			client.PlayerGui.GameUI.TopbarLabel.Font = Enum.Font[val]
+			client.PlayerGui.GameUI.Score.Left.Font = Enum.Font[val]
+			client.PlayerGui.GameUI.Score.Right.Font = Enum.Font[val]
+		end})
+		folder:AddList({ text = "In-Game Font B", values = fonts , value = "Arcade", callback = function(val)
+			client.PlayerGui.GameUI.Arrows.InfoBar.Font = Enum.Font[val]
+			client.PlayerGui.GameUI.Arrows.Left.InfoBar.Font = Enum.Font[val]
+			client.PlayerGui.GameUI.Arrows.Right.InfoBar.Font = Enum.Font[val]
+			fps_label.Font = Enum.Font[val]
+			tps_label.Font = Enum.Font[val]
+			botplay_label.Font = Enum.Font[val]
+		end})
+	end
+
+	local folder = window:AddFolder('Credits') do
+		folder:AddLabel({ text = 'Jan - UI library' })
+		folder:AddLabel({ text = 'wally - Script' })
+		folder:AddLabel({ text = 'Sezei - Fork Scripter'})
+	end
+
+	window:AddLabel({ text = 'Ver. 1.4D' }) -- how tf did i get to 1.5
+	window:AddLabel({ text = 'Updated 8/20/21' })
+	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
 library:Init()
