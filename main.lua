@@ -127,13 +127,13 @@ local function HeartbeatUpdate() -- literally stole it from devforums because im
 	FrameUpdateTable[1] = LastIteration
 	local frames = math.floor(TimeFunction() - Start >= 1 and #FrameUpdateTable or #FrameUpdateTable / (TimeFunction() - Start))
 	if frames <= 30 then
-		tps_label.TextColor3 = Color3.fromRGB(255,68,68)
+		fps_label.TextColor3 = Color3.fromRGB(255,68,68)
 	elseif frames <= 45 then
-		tps_label.TextColor3 = Color3.fromRGB(255,255,127)
+		fps_label.TextColor3 = Color3.fromRGB(255,255,127)
 	elseif frames >= 110 then
-		tps_label.TextColor3 = Color3.fromRGB(85,255,127)
+		fps_label.TextColor3 = Color3.fromRGB(85,255,127)
 	else 
-		tps_label.TextColor3 = Color3.fromRGB(255,255,255)
+		fps_label.TextColor3 = Color3.fromRGB(255,255,255)
 	end
 	fps_label.Text = "FPS: "..tostring(frames)
 end
@@ -365,7 +365,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 		folder:AddBox({ text = "Fake Announce", callback = function(tx)
 			client.PlayerGui.GameUI.TopbarLabel.Visible = true;
 			client.PlayerGui.GameUI.TopbarLabel.Text = tx;
-			fastWait(5);
+			wait(7.5);
 			client.PlayerGui.GameUI.TopbarLabel.Text = "";
 			client.PlayerGui.GameUI.TopbarLabel.Visible = false;
 		end})
@@ -374,7 +374,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 	local folder = window:AddFolder('Credits') do
 		folder:AddLabel({ text = 'Jan - UI library' })
 		folder:AddLabel({ text = 'wally - Script' })
-		folder:AddLabel({ text = 'Sezei - Fork Script'})
+		folder:AddLabel({ text = 'Sezei - Fork Scripter'})
 	end
 
 	window:AddLabel({ text = 'Ver. 1.4E' }) -- how tf did i get to 1.5
