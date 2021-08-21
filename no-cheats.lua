@@ -97,7 +97,7 @@ local window = library:CreateWindow('FF Mod Menu') do
       local fontslist = Enum.Font:GetEnumItems()
       local fonts = {}
       for _,v in pairs(fontslist) do
-          fonts[v.Value] = v.Value
+          fonts[v.Name] = v.Name
       end
       folder:AddList({ text = "In-Game Font A", values = fonts, value = "PermanentMarker", callback = function(val)
 	local s,f = pcall(function()
