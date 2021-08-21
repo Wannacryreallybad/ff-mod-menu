@@ -228,12 +228,10 @@ local hitChances = {}
 
 spawn(function()
 	while true do
-		local tps = wait()
-		local t = string.format("TPS: %.2f", (1/tps))
-		tps_label.Text = t
-		if tonumber(t) < 25 then
-			tps_label.TextColor3 = Color3.fromRGB(255,68,68)
-		else
+		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
+		if tonumber(tps_label.Text) < 25 then
+			tps_label.TextColor3 = Color3.fromRGB(255,127,127)
+		else 
 			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
 		end
 		wait(0.5)
