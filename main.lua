@@ -47,7 +47,7 @@ local botplay_label = library:Create("TextLabel",{
 	FontSize = Enum.FontSize.Size24,
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	TextStrokeColor3 = Color3.fromRGB(0,0,0),
-	TextStrokeTransparency = 0,
+	TextStrokeTransparency = 0.5,
 	Text = "",
 })
 local tps_label = library:Create("TextLabel",{
@@ -59,7 +59,7 @@ local tps_label = library:Create("TextLabel",{
 	FontSize = Enum.FontSize.Size14,
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	TextStrokeColor3 = Color3.fromRGB(0,0,0),
-	TextStrokeTransparency = 0,
+	TextStrokeTransparency = 0.5,
 	TextXAlignment = Enum.TextXAlignment.Left,
 	TextYAlignment = Enum.TextYAlignment.Bottom,
 	Text = "TPS: --",
@@ -73,7 +73,7 @@ local fps_label = library:Create("TextLabel",{
 	FontSize = Enum.FontSize.Size14,
 	TextColor3 = Color3.fromRGB(255, 255, 255),
 	TextStrokeColor3 = Color3.fromRGB(0,0,0),
-	TextStrokeTransparency = 0,
+	TextStrokeTransparency = 0.5,
 	TextXAlignment = Enum.TextXAlignment.Left,
 	TextYAlignment = Enum.TextYAlignment.Bottom,
 	Text = "FPS: --",
@@ -125,7 +125,17 @@ local function HeartbeatUpdate() -- literally stole it from devforums because im
 	end
 
 	FrameUpdateTable[1] = LastIteration
-	fps_label.Text = "FPS: "..tostring(math.floor(TimeFunction() - Start >= 1 and #FrameUpdateTable or #FrameUpdateTable / (TimeFunction() - Start)))
+	local frames = math.floor(TimeFunction() - Start >= 1 and #FrameUpdateTable or #FrameUpdateTable / (TimeFunction() - Start))
+	if frames <= 30 then
+		tps_label.TextColor3 = Color3.fromRGB(255,68,68)
+	elseif frames <= 45 then
+		tps_label.TextColor3 = Color3.fromRGB(255,255,127)
+	elseif frames >= 110 then
+		tps_label.TextColor3 = Color3.fromRGB(85,255,127)
+	else 
+		tps_label.TextColor3 = Color3.fromRGB(255,255,255)
+	end
+	fps_label.Text = "FPS: "..tostring(frames)
 end
 
 Start = TimeFunction()
@@ -219,7 +229,13 @@ local hitChances = {}
 spawn(function()
 	while true do
 		local tps = wait()
-		tps_label.Text = string.format("TPS: %.2f", (1/tps))
+		local t = string.format("TPS: %.2f", (1/tps))
+		tps_label.Text = t
+		if tonumber(t) < 25 then
+			tps_label.TextColor3 = Color3.fromRGB(255,68,68)
+		else
+			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
+		end
 		wait(0.5)
 	end
 end)
@@ -297,7 +313,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 			toggle:SetState(not toggle.state)
 		end })
 
-		folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 40, max = 350, value = 50 })
+		folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 15, max = 500, value = 50 })
 
 		folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
@@ -347,18 +363,18 @@ local window = library:CreateWindow('FF Mod Menu') do
 			botplay_label.Font = Enum.Font[val]
 		end})
 		folder:AddBox({ text = "Fake Announce", callback = function(tx)
-	   		client.PlayerGui.GameUI.TopbarLabel.Visible = true;
-	    		client.PlayerGui.GameUI.TopbarLabel.Text = tx;
-	    		wait(7.5);
-	    		client.PlayerGui.GameUI.TopbarLabel.Text = "";
-	    		client.PlayerGui.GameUI.TopbarLabel.Visible = false;
-     		end})
+			client.PlayerGui.GameUI.TopbarLabel.Visible = true;
+			client.PlayerGui.GameUI.TopbarLabel.Text = tx;
+			fastWait(5);
+			client.PlayerGui.GameUI.TopbarLabel.Text = "";
+			client.PlayerGui.GameUI.TopbarLabel.Visible = false;
+		end})
 	end
 
 	local folder = window:AddFolder('Credits') do
 		folder:AddLabel({ text = 'Jan - UI library' })
 		folder:AddLabel({ text = 'wally - Script' })
-		folder:AddLabel({ text = 'Sezei - Fork Scripter'})
+		folder:AddLabel({ text = 'Sezei - Fork Script'})
 	end
 
 	window:AddLabel({ text = 'Ver. 1.4E' }) -- how tf did i get to 1.5
