@@ -123,7 +123,7 @@ local window = library:CreateWindow('FF Mod Menu') do
         folder:AddLabel({ text = 'Sezei - Mod Menu Fork'})
     end
 
-    window:AddLabel({ text = 'Ver. 1.4D (ChL 2)' }) -- how tf did i get to 1.5
+    window:AddLabel({ text = 'Ver. 1.4D (ChL 3)' }) -- how tf did i get to 1.5
     window:AddLabel({ text = 'Updated 8/21/21' })
     window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
