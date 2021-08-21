@@ -115,6 +115,13 @@ local window = library:CreateWindow('FF Mod Menu') do
 	    tps_label.Font = Enum.Font[val]
 	end); if not s then print(f) end; -- debug
       end})
+      folder:AddBox({ text = "Fake Announce", callback = function(tx)
+	    client.PlayerGui.GameUI.TopbarLabel.Visible = true;
+	    client.PlayerGui.GameUI.TopbarLabel.Text = tx;
+	    wait(7.5);
+	    client.PlayerGui.GameUI.TopbarLabel.Text = "";
+	    client.PlayerGui.GameUI.TopbarLabel.Visible = false;
+      end})
     end
 
     local folder = window:AddFolder('Credits') do
