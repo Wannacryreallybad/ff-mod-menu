@@ -368,6 +368,17 @@ local window = library:CreateWindow('FF Mod Menu') do
 			client.PlayerGui.GameUI.TopbarLabel.Visible = false;
 		end})
 	end
+	
+	local folder = window:AddFolder('Extra Mods') do
+		folder:AddButton({ text = "Redeem All Codes", callback = function(val)
+			local codes = {"MILLIONLIKES","100KACTIVE","HALFBILLION","SMASHTHATLIKEBUTTON","250M","1MILFAVS","100M","19DOLLAR"}
+			local rf = game:GetService("ReplicatedStorage"):FindFirstChild("RF")
+			for _,v in pairs(codes) do
+				rf:InvokeServer({"Server","RequestCode"},{v});
+				fastWait(1);
+			end
+		end})
+	end
 
 	local folder = window:AddFolder('Credits') do
 		folder:AddLabel({ text = 'Jan - UI library' })
