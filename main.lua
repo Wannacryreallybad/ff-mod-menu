@@ -280,11 +280,11 @@ runService:BindToRenderStep(shared._id, 1, function()
 
 						if arrow.Data.Length > 0 then
 							-- wait depending on the arrows length so the animation can play
-							fastWait(arrow.Data.Length + (random:NextInteger(0, library.flags.autoDelay) / 1000))
+							fastWait(arrow.Data.Length + (random:NextInteger(library.flags.autoDelayMin, library.flags.autoDelayMax) / 1000))
 						else
 							-- 0.1 seems to make it miss more, this should be fine enough?
 							-- nah forget it. get this; u now have to choose ur own release delay lmao
-							fastWait(library.flags.autoDelay / 1000) 
+							fastWait(random:NextInteger(library.flags.autoDelayMin, library.flags.autoDelayMax) / 1000) 
 						end
 
 						fireSignal(scrollHandler, userInputService.InputEnded, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
@@ -311,7 +311,8 @@ local window = library:CreateWindow('FF Mod Menu') do
 			toggle:SetState(not toggle.state)
 		end })
 
-		folder:AddSlider({ text = 'Release delay (ms)', flag = 'autoDelay', min = 15, max = 500, value = 50 })
+		folder:AddSlider({ text = 'Min Release Delay', flag = 'autoDelayMin', min = 0, max = 500, value = 50 })
+		folder:AddSlider({ text = 'Max Release Delay', flag = 'autoDelayMax', min = 0, max = 500, value = 50 })
 
 		folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
