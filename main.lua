@@ -1,6 +1,9 @@
 --[[
 Change logs:
 
+9/7/21
+   + Experimental: Added HoldNote Release slider in the BotPlay category. (Can be used to fix the dual-notes, like in Foolhardy)
+
 8/20/21 (2nd)
    + Added a new folder for extra modifications.
    + Added toggleable 'BOTPLAY' label.
@@ -280,7 +283,7 @@ runService:BindToRenderStep(shared._id, 1, function()
 
 						if arrow.Data.Length > 0 then
 							-- wait depending on the arrows length so the animation can play
-							fastWait(arrow.Data.Length + (random:NextInteger(library.flags.autoDelayMin, library.flags.autoDelayMax) / 1000))
+							fastWait(arrow.Data.Length + (library.flags.holdNoteER / 1000))
 						else
 							-- 0.1 seems to make it miss more, this should be fine enough?
 							-- nah forget it. get this; u now have to choose ur own release delay lmao
@@ -313,6 +316,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 
 		folder:AddSlider({ text = 'Min Release Delay', flag = 'autoDelayMin', min = 0, max = 500, value = 50 })
 		folder:AddSlider({ text = 'Max Release Delay', flag = 'autoDelayMax', min = 0, max = 500, value = 50 })
+		folder:AddSlider({ text = 'Holdnote Release Delay', flag = 'holdNoteER', min = -100, max = 100, value = 0 })
 
 		folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
@@ -383,12 +387,12 @@ local window = library:CreateWindow('FF Mod Menu') do
 
 	local folder = window:AddFolder('Credits') do
 		folder:AddLabel({ text = 'Jan - UI library' })
-		folder:AddLabel({ text = 'wally - Script' })
-		folder:AddLabel({ text = 'Sezei - Fork Scripter'})
+		folder:AddLabel({ text = 'wally - Botplay' })
+		folder:AddLabel({ text = 'Sezei - Menu Script'})
 	end
 
-	window:AddLabel({ text = 'Ver. 1.4E' }) -- how tf did i get to 1.5
-	window:AddLabel({ text = 'Updated 8/20/21' })
+	window:AddLabel({ text = 'Ver. 1.4F' }) -- how tf did i get to 1.5
+	window:AddLabel({ text = 'Updated 7 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
