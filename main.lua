@@ -1,6 +1,10 @@
 --[[
 Change logs:
 
+9/10/21
+   * Finalised best default HoldNote release; -20ms.
+   * Changed default values for Max. and Min. delay.
+
 9/7/21
    + Experimental: Added HoldNote Release slider in the BotPlay category. (Can be used to fix the dual-notes, like in Foolhardy)
 
@@ -314,9 +318,9 @@ local window = library:CreateWindow('FF Mod Menu') do
 			toggle:SetState(not toggle.state)
 		end })
 
-		folder:AddSlider({ text = 'Min Release Delay', flag = 'autoDelayMin', min = 0, max = 500, value = 50 })
-		folder:AddSlider({ text = 'Max Release Delay', flag = 'autoDelayMax', min = 0, max = 500, value = 50 })
-		folder:AddSlider({ text = 'Holdnote Release Delay', flag = 'holdNoteER', min = -100, max = 100, value = 0 })
+		folder:AddSlider({ text = 'Min Release Delay', flag = 'autoDelayMin', min = 0, max = 500, value = 0 })
+		folder:AddSlider({ text = 'Max Release Delay', flag = 'autoDelayMax', min = 0, max = 500, value = 35 })
+		folder:AddSlider({ text = 'Holdnote Release Delay', flag = 'holdNoteER', min = -100, max = 100, value = -20 })
 
 		folder:AddList({ text = 'Botplay mode', flag = 'autoPlayerMode', values = { 'Chances', 'Manual' } })
 
@@ -391,8 +395,8 @@ local window = library:CreateWindow('FF Mod Menu') do
 		folder:AddLabel({ text = 'Sezei - Menu Script'})
 	end
 
-	window:AddLabel({ text = 'Ver. 1.4F' }) -- how tf did i get to 1.5
-	window:AddLabel({ text = 'Updated 7 Sep 21' })
+	window:AddLabel({ text = 'Ver. 1.4F1' }) -- how tf did i get to 1.5
+	window:AddLabel({ text = 'Updated 10 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
