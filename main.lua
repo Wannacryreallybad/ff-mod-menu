@@ -125,7 +125,19 @@ fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 local task = task or getrenv().task;
 local fastWait, fastSpawn = task.wait, task.spawn;
 
-local function HeartbeatUpdate() -- literally stole it from devforums because im too lazy to write it myself ok
+spawn(function()
+	while true do
+		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
+		if tonumber(tps_label.Text) < 25 then
+			tps_label.TextColor3 = Color3.fromRGB(255,127,127)
+		else 
+			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
+		end
+		wait(0.5)
+	end
+end)
+
+local function HeartbeatUpdate()
 	LastIteration = TimeFunction()
 	for Index = #FrameUpdateTable, 1, -1 do
 		FrameUpdateTable[Index + 1] = FrameUpdateTable[Index] >= LastIteration - 1 and FrameUpdateTable[Index] or nil
@@ -185,6 +197,7 @@ local fireSignal, rollChance do
 			{ type = 'Ok', value = library.flags.okChance },
 			{ type = 'Bad', value = library.flags.badChance },
 			{ type = 'Miss' , value = library.flags.missChance },
+			{ type = 'MissClick' , value = library.flags.mcChance }
 		}
 
 		table.sort(chances, function(a, b) 
@@ -228,22 +241,10 @@ local chanceValues = {
 	Good = 92,
 	Ok = 87,
 	Bad = 75,
-	Miss = 0
+	MissClick = 0,
 }
 
 local hitChances = {}
-
-spawn(function()
-	while true do
-		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
-		if tonumber(tps_label.Text) < 25 then
-			tps_label.TextColor3 = Color3.fromRGB(255,127,127)
-		else 
-			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
-		end
-		wait(0.5)
-	end
-end)
 
 if shared._id then
 	pcall(runService.UnbindFromRenderStep, runService, shared._id)
@@ -280,17 +281,17 @@ runService:BindToRenderStep(shared._id, 1, function()
 				arrow._hitChance = arrow._hitChance or result;
 
 				local hitChance = (library.flags.autoPlayerMode == 'Manual' and result or arrow._hitChance)
-				if distance >= chanceValues[hitChance] then
+				if distance >= chanceValues[hitChance] and not arrow._hitChance == "Miss" then
 					fastSpawn(function()
 						arrow.Marked = true;
 						fireSignal(scrollHandler, userInputService.InputBegan, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
 
 						if arrow.Data.Length > 0 then
 							-- wait depending on the arrows length so the animation can play
+							-- looks like there was a change that required the arrows to be held to get the score.
+							-- oh well.
 							fastWait(arrow.Data.Length + (library.flags.holdNoteER / 1000))
 						else
-							-- 0.1 seems to make it miss more, this should be fine enough?
-							-- nah forget it. get this; u now have to choose ur own release delay lmao
 							fastWait(random:NextInteger(library.flags.autoDelayMin, library.flags.autoDelayMax) / 1000) 
 						end
 
@@ -330,6 +331,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 			innerfolder:AddSlider({ text = 'Ok %', flag = 'okChance', min = 0, max = 100, value = 0 })
 			innerfolder:AddSlider({ text = 'Bad %', flag = 'badChance', min = 0, max = 100, value = 0 })
 			innerfolder:AddSlider({ text = 'Miss %', flag = 'missChance', min = 0, max = 100, value = 0 })
+			innerfolder:AddSlider({ text = 'MClick %', flag = 'mcChance', min = 0, max = 100, value = 0 })
 		end
 
 		local innerfolder = folder:AddFolder('Manual Keybinds') do
@@ -342,7 +344,7 @@ local window = library:CreateWindow('FF Mod Menu') do
 	end
 
 	local folder = window:AddFolder('Display Mods') do
-		folder:AddToggle({ text = "Show BotPlay", state = true, callback = function(val)
+		folder:AddToggle({ text = "Show Botplay", state = false, callback = function(val)
 			botplay_label.Visible = val
 		end})
 		folder:AddToggle({ text = "Show TPS", state = true, callback = function(val)
@@ -395,8 +397,8 @@ local window = library:CreateWindow('FF Mod Menu') do
 		folder:AddLabel({ text = 'Sezei - Menu Script'})
 	end
 
-	window:AddLabel({ text = 'Ver. 1.4F1' }) -- how tf did i get to 1.5
-	window:AddLabel({ text = 'Updated 10 Sep 21' })
+	window:AddLabel({ text = 'Ver. 1.FUCKTHIS' })
+	window:AddLabel({ text = 'Updated 17 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
