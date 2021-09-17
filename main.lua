@@ -242,11 +242,12 @@ local keys = { Up = Enum.KeyCode.Up; Down = Enum.KeyCode.Down; Left = Enum.KeyCo
 -- they are "weird" because they are in the middle of their Upper & Lower ranges 
 -- should hopefully make them more precise!
 local chanceValues = {
-	Sick = 96,
-	Good = 92,
+	Sick = 98,
+	Good = 93,
 	Ok = 87,
 	Bad = 75,
 	MissClick = 0,
+	Miss = -1,
 }
 
 local hitChances = {}
@@ -286,7 +287,7 @@ runService:BindToRenderStep(shared._id, 1, function()
 				arrow._hitChance = arrow._hitChance or result;
 
 				local hitChance = (library.flags.autoPlayerMode == 'Manual' and result or arrow._hitChance)
-				if distance >= chanceValues[hitChance] and not arrow._hitChance == "Miss" then
+				if distance >= chanceValues[hitChance] and chanceValues[hitChance] >= 0 then
 					fastSpawn(function()
 						arrow.Marked = true;
 						fireSignal(scrollHandler, userInputService.InputBegan, { KeyCode = keys[position], UserInputType = Enum.UserInputType.Keyboard }, false)
