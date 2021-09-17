@@ -39,3 +39,9 @@ v3rmillion: https://v3rmillion.net/member.php?action=profile&uid=1091612
 Fork;<br>
 Discord: Sezei#3061<br>
 As for v3rmillion, I am not active there at all, so don't bother contacting me through it.
+
+## WaIt HoW lOaD?!11/1/!
+```lua
+--use this;
+loadstring(game:HttpGet("https://raw.githubusercontent.com/greasemonkey123/ff-mod-menu/main/main.lua",true))()
+```
