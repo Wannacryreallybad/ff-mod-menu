@@ -41,7 +41,7 @@ Discord: Sezei#3061<br>
 As for v3rmillion, I am not active there at all, so don't bother contacting me through it.
 
 ## WaIt HoW lOaD?!11/1/!
+if you came from youtube because of a shitty 10-chain of ads (they fat i know) then just use this script. you don' need anythin' more.
 ```lua
---use this;
 loadstring(game:HttpGet("https://raw.githubusercontent.com/greasemonkey123/ff-mod-menu/main/main.lua",true))()
 ```
