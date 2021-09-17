@@ -1,6 +1,11 @@
 --[[
 Change logs:
 
+9/17/21
+   + Added an actual Miss rather than 'oh no i know what's coming so i just press it too early'.
+   * Fixed TPS counter.
+   * Made the Botplay display mod non-active by default.
+
 9/10/21
    * Finalised best default HoldNote release; -20ms.
    * Changed default values for Max. and Min. delay.
