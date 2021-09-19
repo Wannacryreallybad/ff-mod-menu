@@ -3,6 +3,8 @@ Change logs:
 
 9/19/21
    + Added Wally's discord invite link.
+   + Stole the function checker from wally because they added it.
+	(Tweaked to warn rather than kick.)
 (706C6561736520646F6E742073686F6F74206D652077616C6C79)
 
 9/17/21
@@ -52,6 +54,16 @@ Information:
 
     You can find contact information on the GitHub repository (https://github.com/wally-rblx/funky-friday-autoplay)
 --]]
+
+local set_identity = (type(syn) == 'table' and syn.set_thread_identity) or setidentity or setthreadcontext
+
+for _, fn in next, { getconnections, firesignal, set_identity, getloadedmodules, getgc } do
+	if type(fn) ~= 'function' then
+		return warn'unsupported exploit'
+	end
+end
+
+
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wally-rblx/uwuware-ui/main/main.lua"))()
 local botplay_label = library:Create("TextLabel",{
@@ -172,7 +184,6 @@ runService.Heartbeat:Connect(HeartbeatUpdate)
 local fireSignal, rollChance do
 	-- updated for script-ware or whatever
 	-- attempted to update for krnl 
-	local set_identity = (type(syn) == 'table' and syn.set_thread_identity) or setidentity or setthreadcontext
 	function fireSignal(target, signal, ...)    
 		-- getconnections with InputBegan / InputEnded does not work without setting Synapse to the game's context level
 		set_identity(2) 
