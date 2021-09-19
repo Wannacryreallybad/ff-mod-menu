@@ -1,6 +1,10 @@
 --[[
 Change logs:
 
+9/19/21
+   + Added Wally's discord invite link.
+(706C6561736520646F6E742073686F6F74206D652077616C6C79)
+
 9/17/21
    + Added an actual Miss rather than 'oh no i know what's coming so i just press it too early'.
    * Fixed TPS counter.
@@ -401,10 +405,14 @@ local window = library:CreateWindow('FF Mod Menu') do
 		folder:AddLabel({ text = 'Jan - UI library' })
 		folder:AddLabel({ text = 'wally - Botplay' })
 		folder:AddLabel({ text = 'Sezei - Menu Script'})
+		folder:AddButton({ text = 'Copy Discord', callback = function() 
+			setclipboard("https://wally.cool/discord")  
+		end })
 	end
 
-	window:AddLabel({ text = 'Ver. 1.FUCKTHIS' })
-	window:AddLabel({ text = 'Updated 17 Sep 21' })
+	window:AddLabel({ text = 'fuck versions.' })
+	window:AddLabel({ text = 'embrace update date.' })
+	window:AddLabel({ text = 'Updated 19 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
