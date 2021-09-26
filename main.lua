@@ -57,7 +57,7 @@ Information:
 
 local set_identity = (type(syn) == 'table' and syn.set_thread_identity) or setidentity or setthreadcontext
 
-for _, fn in next, { getconnections, firesignal, set_identity, getloadedmodules, getgc } do
+for _, fn in pairs({ getconnections, firesignal, set_identity, getloadedmodules, getgc }) do -- just to be safe?
 	if type(fn) ~= 'function' then
 		return warn'unsupported exploit'
 	end
@@ -257,7 +257,7 @@ local keys = { Up = Enum.KeyCode.Up; Down = Enum.KeyCode.Down; Left = Enum.KeyCo
 -- they are "weird" because they are in the middle of their Upper & Lower ranges 
 -- should hopefully make them more precise!
 local chanceValues = {
-	Sick = 98,
+	Sick = 100,
 	Good = 93,
 	Ok = 87,
 	Bad = 75,
@@ -421,9 +421,9 @@ local window = library:CreateWindow('FF Mod Menu') do
 		end })
 	end
 
-	window:AddLabel({ text = 'fuck versions.' })
-	window:AddLabel({ text = 'embrace update date.' })
-	window:AddLabel({ text = 'Updated 19 Sep 21' })
+	window:AddLabel({ text = 'huh.. neat' })
+	window:AddLabel({ text = 'an update' })
+	window:AddLabel({ text = 'Updated 26 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
