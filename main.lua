@@ -1,6 +1,9 @@
 --[[
 Change logs:
 
+10/19/21
+   * 😳
+
 9/19/21
    + Added Wally's discord invite link.
    + Stole the function checker from wally because they added it.
@@ -257,7 +260,7 @@ local keys = { Up = Enum.KeyCode.Up; Down = Enum.KeyCode.Down; Left = Enum.KeyCo
 -- they are "weird" because they are in the middle of their Upper & Lower ranges 
 -- should hopefully make them more precise!
 local chanceValues = {
-	Sick = 100,
+	Sick = 98,
 	Good = 93,
 	Ok = 87,
 	Bad = 75,
@@ -421,9 +424,9 @@ local window = library:CreateWindow('FF Mod Menu') do
 		end })
 	end
 
-	window:AddLabel({ text = 'huh.. neat' })
-	window:AddLabel({ text = 'an update' })
-	window:AddLabel({ text = 'Updated 26 Sep 21' })
+	window:AddLabel({ text = 'heres the' })
+	window:AddLabel({ text = 'motd: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE' })
+	window:AddLabel({ text = 'Updated 19 Oct 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
