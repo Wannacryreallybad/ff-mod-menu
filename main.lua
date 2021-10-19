@@ -3,6 +3,7 @@ Change logs:
 
 10/19/21
    * 😳
+   * ok i'll stop messing with ya'll i think i fixed the miss shit
 
 9/19/21
    + Added Wally's discord invite link.
@@ -147,7 +148,7 @@ tps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 
 local task = task or getrenv().task;
-local fastSpawn = task.defer;
+local fastSpawn = task.spawn;
 
 runService.Stepped:Connect(function ()
 	local now = tick()
@@ -175,7 +176,7 @@ runService.Stepped:Connect(function ()
 end)
 
 local function fastWait(t)
-	local t = tonumber(t) or 1 / 3750
+	local t = tonumber(t) or 1 / 375
 	local start = tick()
 	
 	local thread = coroutine.running()
@@ -185,18 +186,6 @@ local function fastWait(t)
 	local now = coroutine.yield()
 	return now - start, os.clock()
 end
-
-task.defer(function()
-	while true do
-		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
-		if tonumber(tps_label.Text) < 25 then
-			tps_label.TextColor3 = Color3.fromRGB(255,127,127)
-		else 
-			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
-		end
-		wait(0.5)
-	end
-end)
 
 local function HeartbeatUpdate()
 	LastIteration = TimeFunction()
