@@ -186,7 +186,7 @@ local function fastWait(t)
 	return now - start, os.clock()
 end
 
-spawn(function()
+task.defer(function()
 	while true do
 		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
 		if tonumber(tps_label.Text) < 25 then
