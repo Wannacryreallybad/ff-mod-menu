@@ -1,10 +1,6 @@
 --[[
 Change logs:
 
-10/19/21
-   * 😳
-   * ok i'll stop messing with ya'll i think i fixed the miss shit
-
 9/19/21
    + Added Wally's discord invite link.
    + Stole the function checker from wally because they added it.
@@ -148,44 +144,19 @@ tps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 fps_label.Parent = client.PlayerGui:FindFirstChild("GameUI");
 
 local task = task or getrenv().task;
-local fastSpawn = task.spawn;
+local fastWait, fastSpawn = task.wait, task.spawn;
 
-runService.Stepped:Connect(function ()
-	local now = tick()
-	local resumePool
-	
-	for thread, resumeTime in pairs(threads) do
-		-- Resume if we're reasonably close enough.
-		local diff = (resumeTime - now)
-		
-		if diff < 0.005 then
-			if not resumePool then
-				resumePool = {}
-			end
-			
-			table.insert(resumePool, thread)
+spawn(function()
+	while true do
+		tps_label.Text = string.format("TPS: %.2f", (1/wait()))
+		if tonumber(tps_label.Text) < 25 then
+			tps_label.TextColor3 = Color3.fromRGB(255,127,127)
+		else 
+			tps_label.TextColor3 = Color3.fromRGB(255,255,255)
 		end
-	end
-	
-	if resumePool then
-		for _,thread in pairs(resumePool) do
-			threads[thread] = nil
-			coroutine.resume(thread, now)
-		end
+		wait(0.5)
 	end
 end)
-
-local function fastWait(t)
-	local t = tonumber(t) or 1 / 375
-	local start = tick()
-	
-	local thread = coroutine.running()
-	threads[thread] = start + t
-	
-	-- Wait for the thread to resume.
-	local now = coroutine.yield()
-	return now - start, os.clock()
-end
 
 local function HeartbeatUpdate()
 	LastIteration = TimeFunction()
@@ -450,9 +421,9 @@ local window = library:CreateWindow('FF Mod Menu') do
 		end })
 	end
 
-	window:AddLabel({ text = 'heres the' })
-	window:AddLabel({ text = 'motd: EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE' })
-	window:AddLabel({ text = 'Updated 19 Oct 21' })
+	window:AddLabel({ text = 'huh.. neat' })
+	window:AddLabel({ text = 'an update' })
+	window:AddLabel({ text = 'Updated 26 Sep 21' })
 	window:AddBind({ text = 'Menu toggle', key = Enum.KeyCode.Delete, callback = function() library:Close() end })
 end
 
